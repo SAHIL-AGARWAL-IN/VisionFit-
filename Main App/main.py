@@ -1,7 +1,18 @@
 import streamlit as st
 import os
+import sys
+from pathlib import Path
 import time
 import pandas as pd
+from dotenv import load_dotenv
+
+BASE_DIR = Path(__file__).resolve().parent
+if str(BASE_DIR) not in sys.path:
+    sys.path.insert(0, str(BASE_DIR))
+
+load_dotenv()
+load_dotenv(BASE_DIR / ".env")
+
 from services.auth.login_wall import render_login_wall
 from services.state.session_defaults import initial_session_defaults
 from services.config.workout_config import EXERCISE_OPTIONS
@@ -25,8 +36,8 @@ def main():
         layout="centered"
     )
 
-    load_css(os.path.join(os.getcwd(), "static", "style.css"))
-    inject_local_font(os.path.join(os.getcwd(), "static", "AdobeClean.otf"), "AdobeClean")
+    load_css(str(BASE_DIR / "static" / "style.css"))
+    inject_local_font(str(BASE_DIR / "static" / "AdobeClean.otf"), "AdobeClean")
 
     init_db()
 
@@ -47,6 +58,7 @@ def main():
             tts = TextToSpeech()
             st.session_state.voice_pipeline = VoicePipeline(llm_coach, tts)
         except Exception as e:
+            print(f"[VoicePipeline Init Error]: {e}")
             st.session_state.voice_pipeline = None
 
     workout_started = st.session_state.get("workout_started", False)
@@ -197,11 +209,18 @@ def main():
             unsafe_allow_html=True,
         )
     else:
+        ice_servers = [{"urls": ["stun:stun.l.google.com:19302", "stun:stun1.l.google.com:19302"]}]
+        if hasattr(st, "secrets") and "rtc_configuration" in st.secrets:
+            try:
+                ice_servers = st.secrets["rtc_configuration"].get("iceServers", ice_servers)
+            except Exception:
+                pass
+
         context = webrtc_streamer(
             key="exercise-analysis",
             mode=WebRtcMode.SENDRECV,
             video_processor_factory=VideoProcessorClass,
-            rtc_configuration={"iceServers": [{"urls": ["stun:stun.l.google.com:19302"]}]},
+            rtc_configuration={"iceServers": ice_servers},
             media_stream_constraints={
                 "video": True,
                 "audio": False

@@ -1,0 +1,11 @@
+venv/
+.venv/
+__pycache__/
+*.pyc
+.git/
+.gitignore
+.env
+.streamlit/secrets.toml
+Main App/.streamlit/secrets.toml
+*.log
+LandingPage/
