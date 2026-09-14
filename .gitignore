@@ -4,7 +4,15 @@ __pycache__/
 
 # Virtual environment
 venv/
+.venv/
 .env/
+
+# Environment and secrets
+.env
+.env.*
+!.env.example
+.streamlit/secrets.toml
+secrets.toml
 
 # OS files
 .DS_Store
@@ -12,6 +20,7 @@ Thumbs.db
 
 # Database
 Main App/data.db
+data.db
 
 # Logs
 *.log
