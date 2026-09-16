@@ -1,0 +1,27 @@
+name: Keep Streamlit App Awake
+
+on:
+  schedule:
+    # Runs every 4 hours every day
+    - cron: '0 */4 * * *'
+  # Allows manual triggering from the GitHub Actions tab anytime
+  workflow_dispatch:
+
+jobs:
+  keep-alive:
+    name: Ping VisionFit Streamlit App
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send Heartbeat Ping
+        run: |
+          echo "Sending heartbeat ping to VisionFit Streamlit App..."
+          
+          # Ping lightweight healthcheck endpoint
+          HEALTH_STATUS=$(curl -s -o /dev/null -w "%{http_code}" https://kfqb7msiivnxubjezjte7p.streamlit.app/_stcore/health || echo "000")
+          echo "Health Endpoint Status Code: $HEALTH_STATUS"
+
+          # Ping main application entry
+          APP_STATUS=$(curl -s -o /dev/null -w "%{http_code}" https://kfqb7msiivnxubjezjte7p.streamlit.app/ || echo "000")
+          echo "App URL Status Code: $APP_STATUS"
+
+          echo "✅ Streamlit keep-alive heartbeat completed successfully."
