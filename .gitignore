@@ -19,8 +19,10 @@ secrets.toml
 Thumbs.db
 
 # Database
+app/data.db
 Main App/data.db
 data.db
+*.db
 
 # Logs
 *.log
