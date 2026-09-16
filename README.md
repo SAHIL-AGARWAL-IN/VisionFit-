@@ -68,7 +68,7 @@ VisionFit-/
 │   ├── IMGs_add_your_own/      # Product screenshot gallery assets
 │   └── videos_add_your_own/    # Demo video clips
 │
-└── Main App/                   # Core Streamlit Application
+└── app/                        # Core Streamlit Application
     ├── main.py                 # Streamlit entry point
     ├── requirements.txt        # Sub-directory dependencies
     ├── packages.txt            # System dependencies
@@ -129,7 +129,7 @@ GROQ_API_KEY=gsk_your_groq_api_key_here
 
 ### 6. Run the Application
 ```bash
-streamlit run "Main App/main.py"
+streamlit run app/main.py
 ```
 The app will automatically launch at **`http://localhost:8501`**.
 
@@ -144,7 +144,7 @@ The app will automatically launch at **`http://localhost:8501`**.
 3. Click **"New app"** and configure:
    - **Repository:** `SAHIL-AGARWAL-IN/VisionFit-`
    - **Branch:** `main`
-   - **Main file path:** `Main App/main.py`
+   - **Main file path:** `app/main.py`
 4. Expand **Advanced settings** ➔ **Secrets**, and paste:
    ```toml
    GROQ_API_KEY = "your_groq_api_key_here"
