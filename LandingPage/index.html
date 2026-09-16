@@ -1,356 +1,429 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Real-time AI GYM Trainer</title>
-    <link rel="stylesheet" href="style.css" />
-    <style>
-      @font-face {
-        font-family: "Averta";
-        src: url("fonts/Averta.woff2") format("woff2");
-        font-weight: normal;
-        font-style: normal;
-      }
-    </style>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;700&family=Instrument+Serif:ital,wght@0,400;1,400&display=swap"
-      rel="stylesheet"
-    />
-  </head>
-  <body>
-    <!-- GRID OVERLAY -->
-    <div class="grid-overlay" aria-hidden="true"></div>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VisionFit 🏋️‍♂️ — Real-Time AI Gym Coach & Biomechanical Form Corrector</title>
+  <meta name="description" content="Intelligent real-time personal gym coach using computer vision to track body landmarks, validate biomechanics, and deliver sub-second voice cues powered by Groq." />
+  
+  <!-- Modern Typography: Outfit, Inter, JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700;800&family=Outfit:wght@600;700;800;900&display=swap" rel="stylesheet" />
 
-    <!-- NAV -->
-    <nav class="nav">
-      <div class="nav-logo">
-        <span class="logo-bracket">(</span>AI GYM COACH<span
-          class="logo-bracket"
-          >)</span
-        >
-      </div>
-      <div class="nav-links">
-        <a href="#visuals">Gallery</a>
-        <a href="#demo">Demo</a>
-        <a href="#contact">Contact</a>
-      </div>
-    </nav>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
 
-    <!-- HERO -->
-    <section class="hero" id="hero">
-      <div class="hero-tag">
-        <span class="dot"></span>
-        <span>AI-POWERED · REAL-TIME · GYM COACH</span>
+  <!-- Cyber Grid Background -->
+  <div class="cyber-grid-overlay" aria-hidden="true"></div>
+
+  <!-- Navigation Bar -->
+  <div class="nav-wrapper">
+    <div class="container">
+      <nav class="nav">
+        <a href="#hero" class="nav-brand">
+          <div class="brand-icon">V</div>
+          <div class="brand-name">Vision<span>Fit</span></div>
+        </a>
+
+        <div class="nav-menu">
+          <a href="#features" class="nav-link">Features</a>
+          <a href="#demo" class="nav-link">Interactive Demo</a>
+          <a href="#gallery" class="nav-link">Gallery</a>
+          <a href="#pipeline" class="nav-link">Architecture</a>
+          <a href="#developer" class="nav-link">Creator</a>
+        </div>
+
+        <a href="https://kfqb7msiivnxubjezjte7p.streamlit.app/" target="_blank" rel="noopener noreferrer" class="nav-cta">
+          <span>Launch Coach</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="7" y1="17" x2="17" y2="7"></line>
+            <polyline points="7 7 17 7 17 17"></polyline>
+          </svg>
+        </a>
+      </nav>
+    </div>
+  </div>
+
+  <!-- Hero Section -->
+  <header class="hero" id="hero">
+    <div class="container">
+      <div class="hero-pill">
+        <span class="pulse-dot"></span>
+        <span>REAL-TIME COMPUTER VISION COACH · SUB-SECOND GROQ INFERENCE</span>
       </div>
 
       <h1 class="hero-title">
-        <span class="line-one">REAL-TIME</span>
-        <span class="line-two">AI GYM<br />COACH</span>
+        Your Form. Analyzed.<br />
+        <span class="hero-gradient-text">Corrected in Milliseconds.</span>
       </h1>
 
-      <p class="hero-sub">
-        Your form. Analyzed. Corrected. In milliseconds.<br />
-        Computer vision that watches every rep and tells you exactly what to
-        fix.
+      <p class="hero-subtitle">
+        VisionFit tracks 33 3D skeletal landmarks through your webcam, validates exact biomechanical joint angles, counts reps, and delivers proactive spoken coaching cues before bad habits form.
       </p>
 
-      <div class="hero-cta-row">
-        <a
-          href="https://kfqb7msiivnxubjezjte7p.streamlit.app/"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="btn-primary"
-          id="cta-button"
-        >
-          <span>Try it live</span>
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-            <path
-              d="M3 8H13M13 8L9 4M13 8L9 12"
-              stroke="currentColor"
-              stroke-width="1.5"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
+      <div class="hero-actions">
+        <a href="https://kfqb7msiivnxubjezjte7p.streamlit.app/" target="_blank" rel="noopener noreferrer" class="btn-primary">
+          <span>Start Workout Session</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
           </svg>
         </a>
-        <a href="#demo-video" class="btn-ghost">WATCH DEMO ↓</a>
+
+        <a href="#demo" class="btn-secondary">
+          <span>Explore Live Simulator ↓</span>
+        </a>
       </div>
 
-      <!-- Live metrics strip -->
-      <div class="metrics-strip">
-        <div class="metric">
-          <span class="metric-val">100<span class="unit">ms</span></span>
-          <span class="metric-label">Avg Latency</span>
-        </div>
-        <div class="metric-divider"></div>
-        <div class="metric">
-          <span class="metric-val">5<span class="unit">+</span></span>
-          <span class="metric-label">Exercises</span>
-        </div>
-        <div class="metric-divider"></div>
-        <div class="metric">
-          <span class="metric-val">95<span class="unit">%</span></span>
-          <span class="metric-label">Form Accuracy</span>
+      <!-- Hero Visual Showcase -->
+      <div class="hero-showcase">
+        <div class="hero-showcase-inner">
+          <img src="assets/hero_dashboard.jpg" alt="VisionFit AI Real-Time Coaching Dashboard" loading="eager" />
         </div>
       </div>
-    </section>
 
-    <!-- VISUAL SECTION -->
-    <section class="visuals" id="visuals">
-      <div class="section-header center-header">
-        <span class="section-tag">// GALLERY</span>
-        <h2 class="section-title">Built for<br /><em>real athletes</em></h2>
-      </div>
-
-      <div class="card-grid">
-        <!-- Card 1 -->
-        <div class="img-card card-tilt-left card-float-1">
-          <div class="card-inner">
-            <div class="card-img-wrap">
-              <!-- Replace src with your image -->
-              <img
-                src="./IMGs/i1.png"
-                alt="Squat form analysis"
-                onerror="this.parentElement.classList.add('img-placeholder')"
-              />
-              <div class="card-scan-line"></div>
-            </div>
-            <div class="card-corner tl"></div>
-            <div class="card-corner tr"></div>
-            <div class="card-corner bl"></div>
-            <div class="card-corner br"></div>
-          </div>
+      <!-- Floating Telemetry Pills -->
+      <div class="hud-telemetry-bar">
+        <div class="hud-pill cyan">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 14 14"></polyline></svg>
+          <span>Latency: <strong>24ms</strong></span>
         </div>
-
-        <!-- Card 2 — tall center -->
-        <div class="img-card card-center card-float-2">
-          <div class="card-inner">
-            <div class="card-img-wrap">
-              <img
-                src="./IMGs/i2.png"
-                alt="Deadlift posture feedback"
-                onerror="this.parentElement.classList.add('img-placeholder')"
-              />
-              <div class="card-scan-line"></div>
-            </div>
-            <div class="card-corner tl"></div>
-            <div class="card-corner tr"></div>
-            <div class="card-corner bl"></div>
-            <div class="card-corner br"></div>
-          </div>
+        <div class="hud-pill amber">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"></path></svg>
+          <span>Model: <strong>MediaPipe 33 3D Pose</strong></span>
         </div>
-
-        <!-- Card 3 -->
-        <div class="img-card card-tilt-right card-float-3">
-          <div class="card-inner">
-            <div class="card-img-wrap">
-              <img
-                src="./IMGs/i3.png"
-                alt="Overhead press alignment"
-                onerror="this.parentElement.classList.add('img-placeholder')"
-              />
-              <div class="card-scan-line"></div>
-            </div>
-            <div class="card-corner tl"></div>
-            <div class="card-corner tr"></div>
-            <div class="card-corner bl"></div>
-            <div class="card-corner br"></div>
-          </div>
-        </div>
-
-        <div class="img-card card-tilt-right card-float-4">
-          <div class="card-inner"> 
-            <div class="card-img-wrap">
-              <img
-                src="./IMGs/i4.png"
-                alt="Overhead press alignment"
-                onerror="this.parentElement.classList.add('img-placeholder')"
-              />
-              <div class="card-scan-line"></div>
-            </div>
-            <div class="card-corner tl"></div>
-            <div class="card-corner tr"></div>
-            <div class="card-corner bl"></div>
-            <div class="card-corner br"></div>
-          </div>
-        </div>
-
-        <div class="img-card card-center card-float-5">
-          <div class="card-inner">
-            <div class="card-img-wrap">
-              <img
-                src="./IMGs/i5.png"
-                alt="Overhead press alignment"
-                onerror="this.parentElement.classList.add('img-placeholder')"
-              />
-              <div class="card-scan-line"></div>
-            </div>
-            <div class="card-corner tl"></div>
-            <div class="card-corner tr"></div>
-            <div class="card-corner bl"></div>
-            <div class="card-corner br"></div>
-          </div>
-        </div>
-
-        <div class="img-card card-tilt-left card-float-6">
-          <div class="card-inner">
-            <div class="card-img-wrap">
-              <img
-                src="./IMGs/i6.png"
-                alt="Overhead press alignment"
-                onerror="this.parentElement.classList.add('img-placeholder')"
-              />
-              <div class="card-scan-line"></div>
-            </div>
-            <div class="card-corner tl"></div>
-            <div class="card-corner tr"></div>
-            <div class="card-corner bl"></div>
-            <div class="card-corner br"></div>
-          </div>
+        <div class="hud-pill emerald">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path></svg>
+          <span>Voice Cues: <strong>Groq LLM + Audio TTS</strong></span>
         </div>
       </div>
-    </section>
+    </div>
+  </header>
 
-    <!-- DEMO SECTION -->
-    <section class="demo" id="demo">
-      <div class="section-header center-header">
-        <span class="section-tag">// DEMO</span>
-        <h2 class="section-title">See it in<br /><em>action</em></h2>
-        <p class="section-desc">
-          Watch the AI detect and correct form errors in real-time. No hardware
-          required — just your phone or webcam.
+  <!-- Interactive Live Simulator Section -->
+  <section class="section" id="demo">
+    <div class="container">
+      <div class="center-text">
+        <span class="section-tag">// INTERACTIVE EXPERIMENT</span>
+        <h2 class="section-title">Test the Biomechanical Engine</h2>
+        <p class="section-desc center-text">
+          Watch our MediaPipe skeletal pipeline track movement trajectories, calculate joint flexion, and trigger dynamic coaching cues in real-time.
         </p>
       </div>
 
-      <div class="video-wrapper" id="demo-video">
-        <div class="video-glow"></div>
-        <div class="video-container">
-          <div class="video-corner tl"></div>
-          <div class="video-corner tr"></div>
-          <div class="video-corner bl"></div>
-          <div class="video-corner br"></div>
-          <div class="video-status">
-            <span class="dot pulse-dot"></span>
-            <span>DEMO</span>
+      <div class="sim-container">
+        <!-- Simulator Header -->
+        <div class="sim-header">
+          <div class="sim-tabs">
+            <button class="sim-tab-btn active" data-exercise="squat">Squats</button>
+            <button class="sim-tab-btn" data-exercise="pushup">Push-ups</button>
+            <button class="sim-tab-btn" data-exercise="bicep">Biceps Curl</button>
+            <button class="sim-tab-btn" data-exercise="press">Shoulder Press</button>
           </div>
-          <!-- Replace with your video. Options:
-             MP4:    <video src="your-demo.mp4" controls></video>
-             YouTube: <iframe src="https://www.youtube.com/embed/YOUR_ID" ...></iframe>
-        -->
-          <video src="videos/video.mp4" controls playsinline></video>
-          <!-- <iframe src="https://www.youtube.com/embed/YOUR_VIDEO_ID" allowfullscreen></iframe> -->
+
+          <div class="sim-controls">
+            <button class="sim-btn-control" id="sim-play-btn">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+              <span>Pause</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Simulator Layout -->
+        <div class="sim-layout">
+          <!-- Canvas Visualizer -->
+          <div class="sim-canvas-wrap">
+            <div class="sim-canvas-badge">
+              <span class="pulse-dot"></span>
+              <span>LIVE POSE TRACKER</span>
+            </div>
+            <canvas id="pose-canvas"></canvas>
+          </div>
+
+          <!-- Telemetry Side Panel -->
+          <div class="sim-telemetry">
+            <!-- Angle Card -->
+            <div class="telemetry-card">
+              <div class="telemetry-card-title">Joint Kinematics</div>
+              <div class="sim-metric-big" id="sim-angle-val">88°</div>
+              <div class="sim-metric-sub">Primary Vector: <strong id="sim-joint-label">Knee Angle</strong></div>
+            </div>
+
+            <!-- Form Validation Status -->
+            <div class="telemetry-card">
+              <div class="telemetry-card-title">Form Validation</div>
+              <div style="display: flex; align-items: center; justify-content: space-between; margin-top: 6px;">
+                <span class="sim-status-badge status-good" id="sim-status-badge">GOOD DEPTH</span>
+                <div style="font-family: var(--font-mono); font-size: 13px; color: var(--text-muted);">
+                  Reps: <strong style="color: var(--cyan); font-size: 18px;" id="sim-rep-val">0</strong>
+                </div>
+              </div>
+            </div>
+
+            <!-- Voice Coaching Audio Cue -->
+            <div class="voice-cue-box">
+              <div class="voice-cue-header">
+                <div class="voice-wave">
+                  <span></span><span></span><span></span><span></span>
+                </div>
+                <span>Groq Voice Cue</span>
+              </div>
+              <div class="sim-cue-text" id="sim-cue-text">
+                "Perfect depth! Drive through heels."
+              </div>
+            </div>
+
+            <a href="https://kfqb7msiivnxubjezjte7p.streamlit.app/" target="_blank" rel="noopener noreferrer" class="btn-primary" style="justify-content: center; width: 100%;">
+              <span>Test With Your Camera ↗</span>
+            </a>
+          </div>
         </div>
       </div>
+    </div>
+  </section>
 
-      <!-- feature callouts below video -->
-      <div class="feature-row">
-        <div class="feature">
-          <span class="feature-icon">⬡</span>
-          <strong>Pose Detection</strong>
+  <!-- Biomechanical Features Grid -->
+  <section class="section" id="features">
+    <div class="container">
+      <div class="center-text">
+        <span class="section-tag">// BIOMECHANICAL INTELLIGENCE</span>
+        <h2 class="section-title">Form Validation for Every Lift</h2>
+        <p class="section-desc center-text">
+          Precision geometric algorithms detect subtleties invisible to the naked eye.
+        </p>
+      </div>
+
+      <div class="feature-grid">
+        <!-- Squats -->
+        <div class="feature-card">
+          <div class="feature-icon-badge">🦵</div>
+          <h3 class="feature-title">Squats Depth & Hip Plane</h3>
+          <p class="feature-text">
+            Validates knee flexion angle to confirm proper parallel depth. Evaluates back angle and tracks knee displacement to prevent valgus collapse.
+          </p>
+          <div class="feature-tag-list">
+            <span class="feature-tag">Angle &lt; 90°</span>
+            <span class="feature-tag">Depth Check</span>
+            <span class="feature-tag">Knee-Toe Line</span>
+          </div>
         </div>
-        <div class="feature">
-          <span class="feature-icon">⬡</span>
-          <strong>Audio Feedback</strong>
+
+        <!-- Push-ups -->
+        <div class="feature-card">
+          <div class="feature-icon-badge">💪</div>
+          <h3 class="feature-title">Push-up Spine Alignment</h3>
+          <p class="feature-text">
+            Monitors 90° elbow flexion at the bottom of the movement. Computes body linearity vectors to instantly detect hip sagging or piked lumbar spine.
+          </p>
+          <div class="feature-tag-list">
+            <span class="feature-tag">Elbow 90°</span>
+            <span class="feature-tag">Anti-Sag</span>
+            <span class="feature-tag">Full Lockout</span>
+          </div>
         </div>
-        <div class="feature">
-          <span class="feature-icon">⬡</span>
-          <strong>Rep Counter</strong>
+
+        <!-- Biceps Curls -->
+        <div class="feature-card">
+          <div class="feature-icon-badge">🏋️</div>
+          <h3 class="feature-title">Biceps Curl Full ROM</h3>
+          <p class="feature-text">
+            Tracks arm extension from 160° to peak 45° contraction. Bounding box torso stabilization detects cheating momentum and torso swinging.
+          </p>
+          <div class="feature-tag-list">
+            <span class="feature-tag">Full ROM</span>
+            <span class="feature-tag">Elbow Anchor</span>
+            <span class="feature-tag">No Swing</span>
+          </div>
         </div>
-        <div class="feature">
-          <span class="feature-icon">⬡</span>
-          <strong>Works in Real-time</strong>
+
+        <!-- Shoulder Press -->
+        <div class="feature-card">
+          <div class="feature-icon-badge">⚡</div>
+          <h3 class="feature-title">Shoulder Press Overhead</h3>
+          <p class="feature-text">
+            Measures overhead elbow extension and tracks bar path trajectory. Protects your lumbar spine by warning against excessive lower-back arching.
+          </p>
+          <div class="feature-tag-list">
+            <span class="feature-tag">Overhead Lockout</span>
+            <span class="feature-tag">Lumbar Guard</span>
+            <span class="feature-tag">Neck Neutral</span>
+          </div>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- CONTACT SECTION -->
-    <section class="contact" id="contact">
-      <div class="contact-inner">
-        <span class="section-tag">// LET'S CONNECT</span>
-        <h2 class="contact-title">
-          Built by a human.<br /><em>Backed by data.</em>
-        </h2>
-        <p class="contact-desc">
-          Open to opportunities in ML engineering, computer vision, and AI
-          product roles.
+  <!-- Biometric Visuals Gallery Section -->
+  <section class="section" id="gallery">
+    <div class="container">
+      <div class="center-text">
+        <span class="section-tag">// BIOMETRIC TELEMETRY GALLERY</span>
+        <h2 class="section-title">Vision in Action</h2>
+        <p class="section-desc center-text">
+          Click any card to inspect the high-resolution skeletal tracking overlays and real-time biomechanical readouts.
+        </p>
+      </div>
+
+      <div class="gallery-grid">
+        <!-- Squat Card -->
+        <div class="gallery-card">
+          <div class="gallery-img-wrap">
+            <img src="assets/squat_analysis.jpg" alt="Squat Biomechanics Analysis" loading="lazy" />
+            <div class="scanline"></div>
+          </div>
+          <div class="gallery-info">
+            <h4 class="gallery-title">Squat Depth & Parallel Validation</h4>
+            <p class="gallery-desc">Real-time knee angle tracking (88°) with automated parallel verification badge.</p>
+          </div>
+        </div>
+
+        <!-- Pushup Card -->
+        <div class="gallery-card">
+          <div class="gallery-img-wrap">
+            <img src="assets/pushup_analysis.jpg" alt="Pushup Spine Alignment Analysis" loading="lazy" />
+            <div class="scanline"></div>
+          </div>
+          <div class="gallery-info">
+            <h4 class="gallery-title">Push-Up Spine Neutral & Elbow Flexion</h4>
+            <p class="gallery-desc">Straight spine vector check with 90° elbow depth check and chest-to-floor detection.</p>
+          </div>
+        </div>
+
+        <!-- Bicep Curl Card -->
+        <div class="gallery-card">
+          <div class="gallery-img-wrap">
+            <img src="assets/bicep_curl_analysis.jpg" alt="Bicep Curl ROM Tracking" loading="lazy" />
+            <div class="scanline"></div>
+          </div>
+          <div class="gallery-info">
+            <h4 class="gallery-title">Biceps Curl Full ROM & Torso Guard</h4>
+            <p class="gallery-desc">Dynamic arm flexion gauge with bounding box torso stabilization to eliminate momentum.</p>
+          </div>
+        </div>
+
+        <!-- Dashboard Card -->
+        <div class="gallery-card">
+          <div class="gallery-img-wrap">
+            <img src="assets/hero_dashboard.jpg" alt="Live Coaching Dashboard" loading="lazy" />
+            <div class="scanline"></div>
+          </div>
+          <div class="gallery-info">
+            <h4 class="gallery-title">Comprehensive Coaching Dashboard</h4>
+            <p class="gallery-desc">Synchronized multi-metric HUD showing rep count, latency, heart rate, and Groq voice cue.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pipeline Architecture Section -->
+  <section class="section" id="pipeline">
+    <div class="container">
+      <div class="center-text">
+        <span class="section-tag">// ARCHITECTURE & FLOW</span>
+        <h2 class="section-title">How It Works Under the Hood</h2>
+        <p class="section-desc center-text">
+          Engineered for ultra-low latency: zero-cloud video streaming with sub-second voice cues.
+        </p>
+      </div>
+
+      <div class="pipeline-track">
+        <!-- Step 1 -->
+        <div class="pipeline-node">
+          <div class="pipeline-step">01 / CAPTURE</div>
+          <h4 class="pipeline-title">WebRTC Streaming</h4>
+          <p class="pipeline-desc">H.264 video stream captured directly from browser webcam with STUN peer-to-peer connection.</p>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="pipeline-node">
+          <div class="pipeline-step">02 / EXTRACT</div>
+          <h4 class="pipeline-title">MediaPipe Pose</h4>
+          <p class="pipeline-desc">Extracts 33 3D keypoints at 30+ FPS directly in Python without cloud roundtrip delays.</p>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="pipeline-node">
+          <div class="pipeline-step">03 / COMPUTE</div>
+          <h4 class="pipeline-title">Angle Calculus</h4>
+          <p class="pipeline-desc">Computes 3D joint trigonometry, checks movement thresholds, and detects form flaws.</p>
+        </div>
+
+        <!-- Step 4 -->
+        <div class="pipeline-node">
+          <div class="pipeline-step">04 / REASON</div>
+          <h4 class="pipeline-title">Groq LLM Engine</h4>
+          <p class="pipeline-desc">Synthesizes concise, actionable 10-15 word coaching cues in under 300 milliseconds.</p>
+        </div>
+
+        <!-- Step 5 -->
+        <div class="pipeline-node">
+          <div class="pipeline-step">05 / SPEAK</div>
+          <h4 class="pipeline-title">Voice Audio (TTS)</h4>
+          <p class="pipeline-desc">Streams spoken feedback audio directly into your headphones while you exercise.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Developer / Creator Spotlight -->
+  <section class="section" id="developer">
+    <div class="container">
+      <div class="creator-box">
+        <div class="creator-avatar">S</div>
+        <h3 class="creator-name">Sahil Agarwal</h3>
+        <div class="creator-role">AI / ML Engineer & Creator of VisionFit</div>
+        <p class="creator-bio">
+          Passionate about computer vision, real-time AI inference, and building high-impact products at the intersection of fitness, machine learning, and biomechanics.
         </p>
 
-        <div class="social-grid">
+        <div class="social-row">
+          <!-- Live App -->
+          <a href="https://kfqb7msiivnxubjezjte7p.streamlit.app/" target="_blank" rel="noopener noreferrer" class="social-pill" style="border-color: var(--cyan); color: var(--cyan);">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"/></svg>
+            <span>Live Streamlit App</span>
+          </a>
+
           <!-- LinkedIn -->
-          <a
-            href="https://www.linkedin.com/in/sahil-agarwal-1761a8317"
-            target="_blank"
-            rel="noopener"
-            class="social-btn"
-            aria-label="LinkedIn"
-          >
-            <span class="social-icon">
-              <svg
-                viewBox="0 0 24 24"
-                fill="currentColor"
-                width="22"
-                height="22"
-              >
-                <path
-                  d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"
-                />
-              </svg>
-            </span>
-            <span class="social-label">LinkedIn</span>
+          <a href="https://www.linkedin.com/in/sahil-agarwal-1761a8317" target="_blank" rel="noopener noreferrer" class="social-pill">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 8.76c-.97 0-1.75-.79-1.75-1.76s.78-1.76 1.75-1.76 1.75.79 1.75 1.76-.78 1.76-1.75 1.76m1.4 9.74V9.93H5.06v8.57h2.8z"/></svg>
+            <span>LinkedIn Profile</span>
           </a>
 
           <!-- GitHub -->
-          <a
-            href="https://github.com/SAHIL-AGARWAL-IN"
-            target="_blank"
-            rel="noopener"
-            class="social-btn"
-            aria-label="GitHub"
-          >
-            <span class="social-icon">
-              <svg
-                viewBox="0 0 24 24"
-                fill="currentColor"
-                width="22"
-                height="22"
-              >
-                <path
-                  d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"
-                />
-              </svg>
-            </span>
-            <span class="social-label">GitHub</span>
+          <a href="https://github.com/SAHIL-AGARWAL-IN" target="_blank" rel="noopener noreferrer" class="social-pill">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+            <span>GitHub Repository</span>
           </a>
 
-          <!-- Gmail -->
-          <a
-            href="mailto:sahilagg2006@gmail.com"
-            class="social-btn"
-            aria-label="Email"
-          >
-            <span class="social-icon">
-              <svg
-                viewBox="0 0 24 24"
-                fill="currentColor"
-                width="22"
-                height="22"
-              >
-                <path
-                  d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.910 1.528-1.145C21.69 2.28 24 3.434 24 5.457z"
-                />
-              </svg>
-            </span>
-            <span class="social-label">Gmail</span>
+          <!-- Email -->
+          <a href="mailto:sahilagg2006@gmail.com" class="social-pill">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+            <span>sahilagg2006@gmail.com</span>
           </a>
         </div>
       </div>
+    </div>
+  </section>
 
-      <footer class="footer">
-        <span>© 2026 AI GYM Trainer — Real-time AI Gym Trainer</span>
-      </footer>
-    </section>
-  </body>
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <p>© 2026 VisionFit — Created by <a href="https://github.com/SAHIL-AGARWAL-IN" target="_blank" rel="noopener">Sahil Agarwal</a>. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Lightbox Modal for Gallery -->
+  <div class="modal" id="gallery-modal" aria-hidden="true">
+    <div class="modal-content">
+      <button class="modal-close" aria-label="Close modal">&times;</button>
+      <img src="" alt="Expanded Biometric View" id="modal-img" />
+      <div class="modal-caption" id="modal-caption"></div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
 </html>
