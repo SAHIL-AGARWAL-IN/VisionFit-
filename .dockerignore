@@ -9,4 +9,3 @@ __pycache__/
 app/.streamlit/secrets.toml
 *.log
 LandingPage/
-docs/

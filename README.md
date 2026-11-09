@@ -69,7 +69,6 @@ VisionFit-/
 ├── tests/                      # pytest suite + JS parity tests + shared pose fixtures
 ├── scripts/benchmark.py        # Rep-counting accuracy benchmark on labelled clips
 ├── benchmarks/                 # Benchmark labels, results, how to record clips
-├── docs/build-notes/           # Step-by-step notes written while building the app
 │
 ├── LandingPage/                # Static landing page (deployed on Vercel)
 │   ├── index.html              # Page markup
