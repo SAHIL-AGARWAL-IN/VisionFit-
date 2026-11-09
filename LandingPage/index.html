@@ -3,427 +3,366 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>VisionFit 🏋️‍♂️ — Real-Time AI Gym Coach & Biomechanical Form Corrector</title>
-  <meta name="description" content="Intelligent real-time personal gym coach using computer vision to track body landmarks, validate biomechanics, and deliver sub-second voice cues powered by Groq." />
-  
-  <!-- Modern Typography: Outfit, Inter, JetBrains Mono -->
+  <title>VisionFit — Your webcam is your strength coach</title>
+  <meta name="description" content="VisionFit watches your squats, push-ups, curls, presses and lunges through your webcam, counts every rep, and tells you out loud when your form slips. Free, in the browser." />
+  <meta name="theme-color" content="#F7F7F4" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="VisionFit — Your webcam is your strength coach" />
+  <meta property="og:description" content="Rep counting and spoken form cues for five lifts, straight from your webcam. Free, nothing to install." />
+  <meta property="og:url" content="https://vision-fit-zeta.vercel.app/" />
+  <meta name="twitter:card" content="summary" />
+
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700;800&family=Outfit:wght@600;700;800;900&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..100,600..900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
 
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+  <a class="skip-link" href="#main">Skip to content</a>
 
-  <!-- Cyber Grid Background -->
-  <div class="cyber-grid-overlay" aria-hidden="true"></div>
+  <header class="nav" id="top">
+    <div class="container nav-inner">
+      <a href="#top" class="wordmark" aria-label="VisionFit home">VISION<span>FIT</span></a>
 
-  <!-- Navigation Bar -->
-  <div class="nav-wrapper">
-    <div class="container">
-      <nav class="nav">
-        <a href="#hero" class="nav-brand">
-          <div class="brand-icon">V</div>
-          <div class="brand-name">Vision<span>Fit</span></div>
-        </a>
-
-        <div class="nav-menu">
-          <a href="#features" class="nav-link">Features</a>
-          <a href="#demo" class="nav-link">Interactive Demo</a>
-          <a href="#gallery" class="nav-link">Gallery</a>
-          <a href="#pipeline" class="nav-link">Architecture</a>
-          <a href="#developer" class="nav-link">Creator</a>
-        </div>
-
-        <a href="https://kfqb7msiivnxubjezjte7p.streamlit.app/" target="_blank" rel="noopener noreferrer" class="nav-cta">
-          <span>Launch Coach</span>
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <line x1="7" y1="17" x2="17" y2="7"></line>
-            <polyline points="7 7 17 7 17 17"></polyline>
-          </svg>
-        </a>
+      <nav class="nav-links" aria-label="Sections">
+        <a href="#live">Try it live</a>
+        <a href="#how">How it works</a>
+        <a href="#lifts">Lifts</a>
+        <a href="#coach">Coach</a>
+        <a href="#faq">FAQ</a>
       </nav>
-    </div>
-  </div>
 
-  <!-- Hero Section -->
-  <header class="hero" id="hero">
-    <div class="container">
-      <div class="hero-pill">
-        <span class="pulse-dot"></span>
-        <span>REAL-TIME COMPUTER VISION COACH · SUB-SECOND GROQ INFERENCE</span>
-      </div>
-
-      <h1 class="hero-title">
-        Your Form. Analyzed.<br />
-        <span class="hero-gradient-text">Corrected in Milliseconds.</span>
-      </h1>
-
-      <p class="hero-subtitle">
-        VisionFit tracks 33 3D skeletal landmarks through your webcam, validates exact biomechanical joint angles, counts reps, and delivers proactive spoken coaching cues before bad habits form.
-      </p>
-
-      <div class="hero-actions">
-        <a href="https://kfqb7msiivnxubjezjte7p.streamlit.app/" target="_blank" rel="noopener noreferrer" class="btn-primary">
-          <span>Start Workout Session</span>
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-            <line x1="5" y1="12" x2="19" y2="12"></line>
-            <polyline points="12 5 19 12 12 19"></polyline>
-          </svg>
-        </a>
-
-        <a href="#demo" class="btn-secondary">
-          <span>Explore Live Simulator ↓</span>
-        </a>
-      </div>
-
-      <!-- Hero Visual Showcase -->
-      <div class="hero-showcase">
-        <div class="hero-showcase-inner">
-          <img src="assets/hero_dashboard.jpg" alt="VisionFit AI Real-Time Coaching Dashboard" loading="eager" />
-        </div>
-      </div>
-
-      <!-- Floating Telemetry Pills -->
-      <div class="hud-telemetry-bar">
-        <div class="hud-pill cyan">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 14 14"></polyline></svg>
-          <span>Latency: <strong>24ms</strong></span>
-        </div>
-        <div class="hud-pill amber">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"></path></svg>
-          <span>Model: <strong>MediaPipe 33 3D Pose</strong></span>
-        </div>
-        <div class="hud-pill emerald">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path></svg>
-          <span>Voice Cues: <strong>Groq LLM + Audio TTS</strong></span>
-        </div>
-      </div>
+      <a href="https://kfqb7msiivnxubjezjte7p.streamlit.app/" target="_blank" rel="noopener noreferrer" class="btn btn-ink btn-sm">
+        Open the coach <span aria-hidden="true">↗</span>
+      </a>
     </div>
   </header>
 
-  <!-- Interactive Live Simulator Section -->
-  <section class="section" id="demo">
-    <div class="container">
-      <div class="center-text">
-        <span class="section-tag">// INTERACTIVE EXPERIMENT</span>
-        <h2 class="section-title">Test the Biomechanical Engine</h2>
-        <p class="section-desc center-text">
-          Watch our MediaPipe skeletal pipeline track movement trajectories, calculate joint flexion, and trigger dynamic coaching cues in real-time.
-        </p>
-      </div>
+  <main id="main">
+    <!-- Hero -->
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow">AI form coach · free · in your browser</p>
+          <h1 class="display">Your webcam just became a <em>strength coach.</em></h1>
+          <p class="lede">
+            VisionFit watches your squats, push-ups, curls, presses and lunges through your camera.
+            It counts every rep, flags form slips as they happen, and tells you the fix out loud.
+          </p>
 
-      <div class="sim-container">
-        <!-- Simulator Header -->
-        <div class="sim-header">
-          <div class="sim-tabs">
-            <button class="sim-tab-btn active" data-exercise="squat">Squats</button>
-            <button class="sim-tab-btn" data-exercise="pushup">Push-ups</button>
-            <button class="sim-tab-btn" data-exercise="bicep">Biceps Curl</button>
-            <button class="sim-tab-btn" data-exercise="press">Shoulder Press</button>
-          </div>
-
-          <div class="sim-controls">
-            <button class="sim-btn-control" id="sim-play-btn">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
-              <span>Pause</span>
-            </button>
-          </div>
-        </div>
-
-        <!-- Simulator Layout -->
-        <div class="sim-layout">
-          <!-- Canvas Visualizer -->
-          <div class="sim-canvas-wrap">
-            <div class="sim-canvas-badge">
-              <span class="pulse-dot"></span>
-              <span>LIVE POSE TRACKER</span>
-            </div>
-            <canvas id="pose-canvas"></canvas>
-          </div>
-
-          <!-- Telemetry Side Panel -->
-          <div class="sim-telemetry">
-            <!-- Angle Card -->
-            <div class="telemetry-card">
-              <div class="telemetry-card-title">Joint Kinematics</div>
-              <div class="sim-metric-big" id="sim-angle-val">88°</div>
-              <div class="sim-metric-sub">Primary Vector: <strong id="sim-joint-label">Knee Angle</strong></div>
-            </div>
-
-            <!-- Form Validation Status -->
-            <div class="telemetry-card">
-              <div class="telemetry-card-title">Form Validation</div>
-              <div style="display: flex; align-items: center; justify-content: space-between; margin-top: 6px;">
-                <span class="sim-status-badge status-good" id="sim-status-badge">GOOD DEPTH</span>
-                <div style="font-family: var(--font-mono); font-size: 13px; color: var(--text-muted);">
-                  Reps: <strong style="color: var(--cyan); font-size: 18px;" id="sim-rep-val">0</strong>
-                </div>
-              </div>
-            </div>
-
-            <!-- Voice Coaching Audio Cue -->
-            <div class="voice-cue-box">
-              <div class="voice-cue-header">
-                <div class="voice-wave">
-                  <span></span><span></span><span></span><span></span>
-                </div>
-                <span>Groq Voice Cue</span>
-              </div>
-              <div class="sim-cue-text" id="sim-cue-text">
-                "Perfect depth! Drive through heels."
-              </div>
-            </div>
-
-            <a href="https://kfqb7msiivnxubjezjte7p.streamlit.app/" target="_blank" rel="noopener noreferrer" class="btn-primary" style="justify-content: center; width: 100%;">
-              <span>Test With Your Camera ↗</span>
+          <div class="hero-actions">
+            <a href="https://kfqb7msiivnxubjezjte7p.streamlit.app/" target="_blank" rel="noopener noreferrer" class="btn btn-ink">
+              Start a workout <span aria-hidden="true">→</span>
             </a>
+            <a href="#live" class="btn btn-ghost">Try it live, no install</a>
           </div>
+
+          <dl class="facts">
+            <div><dt class="num">5</dt><dd>lifts tracked</dd></div>
+            <div><dt class="num">33</dt><dd>body points per frame</dd></div>
+            <div><dt class="num">0</dt><dd>apps to install</dd></div>
+          </dl>
+        </div>
+
+        <!-- Simulator -->
+        <div class="sim" aria-label="Animated preview of VisionFit tracking an exercise">
+          <div class="sim-head">
+            <span class="sim-badge"><i></i>Preview · simulation</span>
+            <button class="sim-toggle" id="sim-toggle" type="button" aria-pressed="false">Pause</button>
+          </div>
+
+          <div class="sim-tabs" role="tablist" aria-label="Choose an exercise">
+            <button role="tab" aria-selected="true" class="sim-tab" data-exercise="squat">Squats</button>
+            <button role="tab" aria-selected="false" class="sim-tab" data-exercise="pushup">Push-ups</button>
+            <button role="tab" aria-selected="false" class="sim-tab" data-exercise="curl">Curls</button>
+            <button role="tab" aria-selected="false" class="sim-tab" data-exercise="press">Press</button>
+            <button role="tab" aria-selected="false" class="sim-tab" data-exercise="lunge">Lunges</button>
+          </div>
+
+          <div class="sim-stage">
+            <canvas id="sim-canvas" role="img" aria-label="Stick-figure skeleton performing the selected exercise"></canvas>
+          </div>
+
+          <div class="sim-readout">
+            <div class="readout">
+              <span class="readout-label" id="sim-joint">Knee</span>
+              <span class="num readout-value" id="sim-angle">175°</span>
+            </div>
+            <div class="readout">
+              <span class="readout-label">Reps</span>
+              <span class="num readout-value" id="sim-reps">0</span>
+            </div>
+            <div class="readout readout-status">
+              <span class="readout-label" id="sim-status-label">Depth</span>
+              <span class="chip chip-neutral" id="sim-status"><i></i>Standing</span>
+            </div>
+          </div>
+
+          <p class="sim-cue" id="sim-cue" aria-live="polite">“Every fourth rep in this preview has a deliberate mistake. Watch the coach catch it.”</p>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- Biomechanical Features Grid -->
-  <section class="section" id="features">
-    <div class="container">
-      <div class="center-text">
-        <span class="section-tag">// BIOMECHANICAL INTELLIGENCE</span>
-        <h2 class="section-title">Form Validation for Every Lift</h2>
-        <p class="section-desc center-text">
-          Precision geometric algorithms detect subtleties invisible to the naked eye.
-        </p>
-      </div>
-
-      <div class="feature-grid">
-        <!-- Squats -->
-        <div class="feature-card">
-          <div class="feature-icon-badge">🦵</div>
-          <h3 class="feature-title">Squats Depth & Hip Plane</h3>
-          <p class="feature-text">
-            Validates knee flexion angle to confirm proper parallel depth. Evaluates back angle and tracks knee displacement to prevent valgus collapse.
-          </p>
-          <div class="feature-tag-list">
-            <span class="feature-tag">Angle &lt; 90°</span>
-            <span class="feature-tag">Depth Check</span>
-            <span class="feature-tag">Knee-Toe Line</span>
-          </div>
-        </div>
-
-        <!-- Push-ups -->
-        <div class="feature-card">
-          <div class="feature-icon-badge">💪</div>
-          <h3 class="feature-title">Push-up Spine Alignment</h3>
-          <p class="feature-text">
-            Monitors 90° elbow flexion at the bottom of the movement. Computes body linearity vectors to instantly detect hip sagging or piked lumbar spine.
-          </p>
-          <div class="feature-tag-list">
-            <span class="feature-tag">Elbow 90°</span>
-            <span class="feature-tag">Anti-Sag</span>
-            <span class="feature-tag">Full Lockout</span>
-          </div>
-        </div>
-
-        <!-- Biceps Curls -->
-        <div class="feature-card">
-          <div class="feature-icon-badge">🏋️</div>
-          <h3 class="feature-title">Biceps Curl Full ROM</h3>
-          <p class="feature-text">
-            Tracks arm extension from 160° to peak 45° contraction. Bounding box torso stabilization detects cheating momentum and torso swinging.
-          </p>
-          <div class="feature-tag-list">
-            <span class="feature-tag">Full ROM</span>
-            <span class="feature-tag">Elbow Anchor</span>
-            <span class="feature-tag">No Swing</span>
-          </div>
-        </div>
-
-        <!-- Shoulder Press -->
-        <div class="feature-card">
-          <div class="feature-icon-badge">⚡</div>
-          <h3 class="feature-title">Shoulder Press Overhead</h3>
-          <p class="feature-text">
-            Measures overhead elbow extension and tracks bar path trajectory. Protects your lumbar spine by warning against excessive lower-back arching.
-          </p>
-          <div class="feature-tag-list">
-            <span class="feature-tag">Overhead Lockout</span>
-            <span class="feature-tag">Lumbar Guard</span>
-            <span class="feature-tag">Neck Neutral</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Biometric Visuals Gallery Section -->
-  <section class="section" id="gallery">
-    <div class="container">
-      <div class="center-text">
-        <span class="section-tag">// BIOMETRIC TELEMETRY GALLERY</span>
-        <h2 class="section-title">Vision in Action</h2>
-        <p class="section-desc center-text">
-          Click any card to inspect the high-resolution skeletal tracking overlays and real-time biomechanical readouts.
-        </p>
-      </div>
-
-      <div class="gallery-grid">
-        <!-- Squat Card -->
-        <div class="gallery-card">
-          <div class="gallery-img-wrap">
-            <img src="assets/squat_analysis.jpg" alt="Squat Biomechanics Analysis" loading="lazy" />
-            <div class="scanline"></div>
-          </div>
-          <div class="gallery-info">
-            <h4 class="gallery-title">Squat Depth & Parallel Validation</h4>
-            <p class="gallery-desc">Real-time knee angle tracking (88°) with automated parallel verification badge.</p>
-          </div>
-        </div>
-
-        <!-- Pushup Card -->
-        <div class="gallery-card">
-          <div class="gallery-img-wrap">
-            <img src="assets/pushup_analysis.jpg" alt="Pushup Spine Alignment Analysis" loading="lazy" />
-            <div class="scanline"></div>
-          </div>
-          <div class="gallery-info">
-            <h4 class="gallery-title">Push-Up Spine Neutral & Elbow Flexion</h4>
-            <p class="gallery-desc">Straight spine vector check with 90° elbow depth check and chest-to-floor detection.</p>
-          </div>
-        </div>
-
-        <!-- Bicep Curl Card -->
-        <div class="gallery-card">
-          <div class="gallery-img-wrap">
-            <img src="assets/bicep_curl_analysis.jpg" alt="Bicep Curl ROM Tracking" loading="lazy" />
-            <div class="scanline"></div>
-          </div>
-          <div class="gallery-info">
-            <h4 class="gallery-title">Biceps Curl Full ROM & Torso Guard</h4>
-            <p class="gallery-desc">Dynamic arm flexion gauge with bounding box torso stabilization to eliminate momentum.</p>
-          </div>
-        </div>
-
-        <!-- Dashboard Card -->
-        <div class="gallery-card">
-          <div class="gallery-img-wrap">
-            <img src="assets/hero_dashboard.jpg" alt="Live Coaching Dashboard" loading="lazy" />
-            <div class="scanline"></div>
-          </div>
-          <div class="gallery-info">
-            <h4 class="gallery-title">Comprehensive Coaching Dashboard</h4>
-            <p class="gallery-desc">Synchronized multi-metric HUD showing rep count, latency, heart rate, and Groq voice cue.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Pipeline Architecture Section -->
-  <section class="section" id="pipeline">
-    <div class="container">
-      <div class="center-text">
-        <span class="section-tag">// ARCHITECTURE & FLOW</span>
-        <h2 class="section-title">How It Works Under the Hood</h2>
-        <p class="section-desc center-text">
-          Engineered for ultra-low latency: zero-cloud video streaming with sub-second voice cues.
-        </p>
-      </div>
-
-      <div class="pipeline-track">
-        <!-- Step 1 -->
-        <div class="pipeline-node">
-          <div class="pipeline-step">01 / CAPTURE</div>
-          <h4 class="pipeline-title">WebRTC Streaming</h4>
-          <p class="pipeline-desc">H.264 video stream captured directly from browser webcam with STUN peer-to-peer connection.</p>
-        </div>
-
-        <!-- Step 2 -->
-        <div class="pipeline-node">
-          <div class="pipeline-step">02 / EXTRACT</div>
-          <h4 class="pipeline-title">MediaPipe Pose</h4>
-          <p class="pipeline-desc">Extracts 33 3D keypoints at 30+ FPS directly in Python without cloud roundtrip delays.</p>
-        </div>
-
-        <!-- Step 3 -->
-        <div class="pipeline-node">
-          <div class="pipeline-step">03 / COMPUTE</div>
-          <h4 class="pipeline-title">Angle Calculus</h4>
-          <p class="pipeline-desc">Computes 3D joint trigonometry, checks movement thresholds, and detects form flaws.</p>
-        </div>
-
-        <!-- Step 4 -->
-        <div class="pipeline-node">
-          <div class="pipeline-step">04 / REASON</div>
-          <h4 class="pipeline-title">Groq LLM Engine</h4>
-          <p class="pipeline-desc">Synthesizes concise, actionable 10-15 word coaching cues in under 300 milliseconds.</p>
-        </div>
-
-        <!-- Step 5 -->
-        <div class="pipeline-node">
-          <div class="pipeline-step">05 / SPEAK</div>
-          <h4 class="pipeline-title">Voice Audio (TTS)</h4>
-          <p class="pipeline-desc">Streams spoken feedback audio directly into your headphones while you exercise.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Developer / Creator Spotlight -->
-  <section class="section" id="developer">
-    <div class="container">
-      <div class="creator-box">
-        <div class="creator-avatar">S</div>
-        <h3 class="creator-name">Sahil Agarwal</h3>
-        <div class="creator-role">AI / ML Engineer & Creator of VisionFit</div>
-        <p class="creator-bio">
-          Passionate about computer vision, real-time AI inference, and building high-impact products at the intersection of fitness, machine learning, and biomechanics.
+    <!-- Live demo -->
+    <section class="section section-live" id="live">
+      <div class="container">
+        <p class="eyebrow eyebrow-accent">Try it live</p>
+        <h2 class="display display-md">Your skeleton, <em>right now.</em></h2>
+        <p class="section-lede">
+          Pose tracking runs entirely in this browser tab, and the rep rules are the app's own detectors ported to
+          JavaScript and tested against the Python versions. Your video never leaves your device.
         </p>
 
-        <div class="social-row">
-          <!-- Live App -->
-          <a href="https://kfqb7msiivnxubjezjte7p.streamlit.app/" target="_blank" rel="noopener noreferrer" class="social-pill" style="border-color: var(--cyan); color: var(--cyan);">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"/></svg>
-            <span>Live Streamlit App</span>
-          </a>
+        <div class="live-grid">
+          <div class="live-stage" id="live-stage">
+            <video id="live-video" playsinline muted></video>
+            <canvas id="live-canvas" aria-hidden="true"></canvas>
 
-          <!-- LinkedIn -->
-          <a href="https://www.linkedin.com/in/sahil-agarwal-1761a8317" target="_blank" rel="noopener noreferrer" class="social-pill">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 8.76c-.97 0-1.75-.79-1.75-1.76s.78-1.76 1.75-1.76 1.75.79 1.75 1.76-.78 1.76-1.75 1.76m1.4 9.74V9.93H5.06v8.57h2.8z"/></svg>
-            <span>LinkedIn Profile</span>
-          </a>
+            <div class="live-placeholder" id="live-placeholder">
+              <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M23 7l-7 5 7 5V7z"></path><rect x="1" y="5" width="15" height="14" rx="2"></rect>
+              </svg>
+              <button class="btn btn-accent" id="live-start" type="button">Start camera</button>
+              <p>Stand 2–3 m back, side-on, with your whole body in view.</p>
+            </div>
 
-          <!-- GitHub -->
-          <a href="https://github.com/SAHIL-AGARWAL-IN" target="_blank" rel="noopener noreferrer" class="social-pill">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
-            <span>GitHub Repository</span>
-          </a>
+            <p class="live-message" id="live-message" role="status" hidden></p>
+            <p class="live-perf" id="live-perf" aria-live="off"></p>
+          </div>
 
-          <!-- Email -->
-          <a href="mailto:sahilagg2006@gmail.com" class="social-pill">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
-            <span>sahilagg2006@gmail.com</span>
-          </a>
+          <div class="live-panel">
+            <div class="sim-tabs" role="tablist" aria-label="Choose an exercise">
+              <button role="tab" aria-selected="true" class="sim-tab live-tab" data-exercise="Squats">Squats</button>
+              <button role="tab" aria-selected="false" class="sim-tab live-tab" data-exercise="Push-ups">Push-ups</button>
+              <button role="tab" aria-selected="false" class="sim-tab live-tab" data-exercise="Biceps Curls (Dumbbell)">Curls</button>
+              <button role="tab" aria-selected="false" class="sim-tab live-tab" data-exercise="Shoulder Press">Press</button>
+              <button role="tab" aria-selected="false" class="sim-tab live-tab" data-exercise="Lunges">Lunges</button>
+            </div>
+
+            <div class="live-readouts">
+              <div class="readout">
+                <span class="readout-label">Reps</span>
+                <span class="num live-big" id="live-reps">0</span>
+              </div>
+              <div class="readout">
+                <span class="readout-label" id="live-angle-label">Knee</span>
+                <span class="num live-big" id="live-angle">–</span>
+              </div>
+            </div>
+
+            <div class="live-statuses" id="live-statuses"></div>
+
+            <p class="sim-cue" id="live-cue" aria-live="polite">“Press Start camera, then do a few reps.”</p>
+
+            <div class="live-controls">
+              <label class="toggle">
+                <input type="checkbox" id="live-voice" checked />
+                <span>Speak cues out loud</span>
+              </label>
+              <button class="btn btn-ghost btn-sm" id="live-stop" type="button" hidden>Stop camera</button>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- Footer -->
+    <!-- How it works -->
+    <section class="section" id="how">
+      <div class="container">
+        <p class="eyebrow">How it works</p>
+        <h2 class="display display-md">Three steps. No wearables.</h2>
+
+        <ol class="steps">
+          <li class="step">
+            <span class="step-num num">01</span>
+            <h3>Pick a lift and a target</h3>
+            <p>Choose the exercise, how many sets, and how many reps per set.</p>
+          </li>
+          <li class="step">
+            <span class="step-num num">02</span>
+            <h3>Turn on your camera</h3>
+            <p>Stand side-on with your whole body in frame. Pose detection finds 33 points on your body in every frame.</p>
+          </li>
+          <li class="step">
+            <span class="step-num num">03</span>
+            <h3>Train and listen</h3>
+            <p>Reps and sets count themselves. When your form slips, the coach tells you what to fix.</p>
+          </li>
+        </ol>
+
+        <div class="pipeline" aria-label="Processing pipeline">
+          <span>Camera</span><i aria-hidden="true">→</i>
+          <span>WebRTC stream</span><i aria-hidden="true">→</i>
+          <span>MediaPipe Pose</span><i aria-hidden="true">→</i>
+          <span>Joint-angle rules</span><i aria-hidden="true">→</i>
+          <span>Groq LLM</span><i aria-hidden="true">→</i>
+          <span>Speech</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Lifts -->
+    <section class="section section-alt" id="lifts">
+      <div class="container">
+        <p class="eyebrow">Five lifts</p>
+        <h2 class="display display-md">Exactly what gets checked.</h2>
+        <p class="section-lede">These are the actual rules the app runs on every frame. No black box.</p>
+
+        <div class="lift-grid">
+          <article class="lift">
+            <h3>Squats</h3>
+            <dl>
+              <dt>Counts a rep</dt><dd>Knee bends past 100°, then you stand back up past 160°.</dd>
+              <dt>Watches for</dt><dd>Shallow reps, and torso leaning more than 55° forward.</dd>
+              <dt>Camera</dt><dd>Side-on, whole body in frame.</dd>
+            </dl>
+          </article>
+
+          <article class="lift">
+            <h3>Push-ups</h3>
+            <dl>
+              <dt>Counts a rep</dt><dd>Elbow below 90°, then back up past 160°.</dd>
+              <dt>Watches for</dt><dd>Hips sagging or piking, and a bent body line.</dd>
+              <dt>Camera</dt><dd>Floor level, side-on.</dd>
+            </dl>
+          </article>
+
+          <article class="lift">
+            <h3>Biceps curls</h3>
+            <dl>
+              <dt>Counts a rep</dt><dd>Elbow curls past 50°, then lowers past 160°.</dd>
+              <dt>Watches for</dt><dd>Elbow drifting away from your side, torso swinging.</dd>
+              <dt>Camera</dt><dd>Facing you or side-on.</dd>
+            </dl>
+          </article>
+
+          <article class="lift">
+            <h3>Shoulder press</h3>
+            <dl>
+              <dt>Counts a rep</dt><dd>Lockout above 160°, then back down below 90°.</dd>
+              <dt>Watches for</dt><dd>Lower back arching.</dd>
+              <dt>Camera</dt><dd>Side-on, arms to knees visible.</dd>
+            </dl>
+          </article>
+
+          <article class="lift">
+            <h3>Lunges</h3>
+            <dl>
+              <dt>Counts a rep</dt><dd>Front knee bends past 100°, then you rise past 160°.</dd>
+              <dt>Watches for</dt><dd>Shoulders drifting off your hips (balance).</dd>
+              <dt>Camera</dt><dd>Side-on, full stride in frame.</dd>
+            </dl>
+          </article>
+
+          <article class="lift lift-cta">
+            <h3>Your sets, saved</h3>
+            <p>Every finished set is logged with reps and time, so you can see what you did this week.</p>
+            <a href="https://kfqb7msiivnxubjezjte7p.streamlit.app/" target="_blank" rel="noopener noreferrer" class="btn btn-ink btn-sm">
+              Try it now <span aria-hidden="true">→</span>
+            </a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Coach -->
+    <section class="section section-ink" id="coach">
+      <div class="container coach-grid">
+        <div>
+          <p class="eyebrow eyebrow-accent">The coach</p>
+          <h2 class="display display-md">A coach that talks back.</h2>
+          <p class="section-lede">
+            When a form check fails, VisionFit sends the issue to a language model on Groq, which writes a short,
+            specific cue. It's turned into speech and played in your browser. Cues are spaced out, and the same
+            correction isn't repeated straight away, so you hear coaching rather than commentary.
+          </p>
+        </div>
+
+        <ul class="cues" aria-label="Example coaching cues">
+          <li><span class="cue-tag">Shallow squat</span>“Sit deeper. Get your hips below your knees on this next one.”</li>
+          <li><span class="cue-tag">Hips sagging</span>“Hips are dropping. Squeeze your glutes and hold a straight line.”</li>
+          <li><span class="cue-tag">Set complete</span>“Set done. Shake it out and get ready for the next one.”</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="section" id="faq">
+      <div class="container faq-grid">
+        <div>
+          <p class="eyebrow">FAQ</p>
+          <h2 class="display display-md">Fair questions.</h2>
+        </div>
+
+        <div class="faq">
+          <details>
+            <summary>Do I need to install anything?</summary>
+            <p>No. It runs in a browser tab. You need a webcam and a name to sign in with. There's no password.</p>
+          </details>
+          <details>
+            <summary>Is my video recorded?</summary>
+            <p>No. Frames are streamed to the app server, analysed in memory and thrown away. Only your name and your set totals (exercise, reps, sets, time) are stored.</p>
+          </details>
+          <details>
+            <summary>How accurate is it?</summary>
+            <p>It measures 2D joint angles from a single camera, so camera position matters a lot. Side-on with your whole body in view works best. It's a training aid, not a medical or physio tool.</p>
+          </details>
+          <details>
+            <summary>Why is the first load slow?</summary>
+            <p>The app is hosted on Streamlit Community Cloud, which sleeps when nobody is using it. The first visit can take around 30 seconds to wake up.</p>
+          </details>
+          <details>
+            <summary>What does it cost?</summary>
+            <p>Nothing. VisionFit is a free personal project, and its source code is public on GitHub.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- Creator -->
+    <section class="section section-alt" id="creator">
+      <div class="container creator">
+        <div class="creator-mark num" aria-hidden="true">SA</div>
+        <div>
+          <p class="eyebrow">Built by</p>
+          <h2 class="creator-name">Sahil Agarwal</h2>
+          <p class="creator-bio">
+            AI / ML engineer working on computer vision and real-time inference, and building products where fitness
+            and machine learning meet.
+          </p>
+          <div class="creator-links">
+            <a href="https://www.linkedin.com/in/sahil-agarwal-1761a8317" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+            <a href="https://github.com/SAHIL-AGARWAL-IN/VisionFit-" target="_blank" rel="noopener noreferrer">Source on GitHub</a>
+            <a href="mailto:sahilagg2006@gmail.com">sahilagg2006@gmail.com</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Final CTA -->
+    <section class="final-cta">
+      <div class="container final-cta-inner">
+        <h2 class="display display-md">Ready for your next set?</h2>
+        <a href="https://kfqb7msiivnxubjezjte7p.streamlit.app/" target="_blank" rel="noopener noreferrer" class="btn btn-accent">
+          Start a workout <span aria-hidden="true">→</span>
+        </a>
+      </div>
+    </section>
+  </main>
+
   <footer class="footer">
-    <div class="container">
-      <p>© 2026 VisionFit — Created by <a href="https://github.com/SAHIL-AGARWAL-IN" target="_blank" rel="noopener">Sahil Agarwal</a>. All rights reserved.</p>
+    <div class="container footer-inner">
+      <span class="wordmark wordmark-sm">VISION<span>FIT</span></span>
+      <span>© 2026 Sahil Agarwal. A training aid, not medical advice.</span>
     </div>
   </footer>
 
-  <!-- Lightbox Modal for Gallery -->
-  <div class="modal" id="gallery-modal" aria-hidden="true">
-    <div class="modal-content">
-      <button class="modal-close" aria-label="Close modal">&times;</button>
-      <img src="" alt="Expanded Biometric View" id="modal-img" />
-      <div class="modal-caption" id="modal-caption"></div>
-    </div>
-  </div>
-
   <script src="app.js"></script>
+  <script src="detectors.js"></script>
+  <script type="module" src="live.js"></script>
 </body>
 </html>

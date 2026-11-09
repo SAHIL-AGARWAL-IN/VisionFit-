@@ -6,6 +6,7 @@ __pycache__/
 .gitignore
 .env
 .streamlit/secrets.toml
-Main App/.streamlit/secrets.toml
+app/.streamlit/secrets.toml
 *.log
 LandingPage/
+docs/

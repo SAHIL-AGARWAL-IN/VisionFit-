@@ -4,6 +4,8 @@ from services.config.workout_config import PROMPT
 
 
 class LLMCoach:
+    HISTORY_LIMIT = 10
+
     def __init__(self, groq_client):
         self.client = groq_client
         self.history = []
@@ -18,7 +20,7 @@ class LLMCoach:
 
         messages = [
             {"role": "system", "content": self.system_prompt},
-            *self.history[-10:],
+            *self.history[-self.HISTORY_LIMIT:],
             {"role": "user", "content": prompt}
         ]
 
@@ -54,9 +56,9 @@ class LLMCoach:
         if not text:
             if last_error:
                 print(f"[LLMCoach] Warning: Could not generate LLM feedback: {last_error}")
-            text = "Stay focused on your form and keep pushing!"
+            return None
 
+        self.history.append({"role": "user", "content": prompt})
         self.history.append({"role": "assistant", "content": text})
+        self.history = self.history[-self.HISTORY_LIMIT:]
         return text
-
-    

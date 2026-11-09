@@ -1,9 +1,11 @@
+import math
 from core.base_exercise import BaseExercise
 
 
 class SquatDetector(BaseExercise):
-    DOWN_THRESHOLD = 100   
-    UP_THRESHOLD = 160     
+    DOWN_THRESHOLD = 100   # knee angle that counts as "deep enough"
+    UP_THRESHOLD = 160     # knee angle that counts as "standing"
+    REP_START_THRESHOLD = 145  # below this the user has started a rep
     MIN_VISIBILITY = 0.7
 
     LEFT_HIP = 23
@@ -17,10 +19,14 @@ class SquatDetector(BaseExercise):
 
     def __init__(self):
         super().__init__()
+        self._min_knee_angle = None
+        self._last_rep_status = "N/A"
 
     def reset(self):
         self.reps = 0
         self.stage = None
+        self._min_knee_angle = None
+        self._last_rep_status = "N/A"
 
     def process(self, landmarks):
         left_knee_angle = self.calculate_angle(
@@ -51,20 +57,37 @@ class SquatDetector(BaseExercise):
             self.get_point(landmarks, knee_idx)
         )
 
+        # Torso lean measured from vertical (0° = upright). The hip angle above naturally gets
+        # small at the bottom of every deep squat, so it can't be used to judge forward lean.
+        dx = landmarks[shoulder_idx].x - landmarks[hip_idx].x
+        dy = landmarks[shoulder_idx].y - landmarks[hip_idx].y
+        torso_lean = math.degrees(math.atan2(abs(dx), abs(dy))) if (dx or dy) else 0.0
+
         key_landmark_visible = landmarks[hip_idx].visibility >= self.MIN_VISIBILITY and landmarks[knee_idx].visibility >= self.MIN_VISIBILITY and landmarks[ankle_idx].visibility >= self.MIN_VISIBILITY
 
         if key_landmark_visible:
-            if knee_angle < self.DOWN_THRESHOLD:
+            # Track the deepest point of each rep, then judge the rep once the user stands back up.
+            if knee_angle < self.REP_START_THRESHOLD:
                 self.stage = "down"
+                if self._min_knee_angle is None or knee_angle < self._min_knee_angle:
+                    self._min_knee_angle = knee_angle
 
             if knee_angle >= self.UP_THRESHOLD and self.stage == "down":
                 self.stage = "up"
-                self.reps += 1
+
+                if self._min_knee_angle is not None and self._min_knee_angle <= self.DOWN_THRESHOLD:
+                    self.reps += 1
+                    self._last_rep_status = "GOOD DEPTH"
+                else:
+                    self._last_rep_status = "TOO HIGH"
+
+                self._min_knee_angle = None
 
         if self.stage == "down":
-            depth_status = "GOOD DEPTH" if knee_angle <= self.DOWN_THRESHOLD else "TOO HIGH"
+            reached_depth = self._min_knee_angle is not None and self._min_knee_angle <= self.DOWN_THRESHOLD
+            depth_status = "GOOD DEPTH" if reached_depth else "GO LOWER"
         elif self.stage == "up":
-            depth_status = "STANDING"
+            depth_status = self._last_rep_status
         else:
             depth_status = "N/A"
 
@@ -72,6 +95,6 @@ class SquatDetector(BaseExercise):
             "reps": self.reps,
             "knee_angle": int(knee_angle),
             "back_angle": int(back_angle),
+            "torso_lean": int(torso_lean),
             "depth_status": depth_status
         }
-    

@@ -1,181 +1,458 @@
 /* =========================================================
-   GLOBAL THEME
+   VisionFit — clean athletic theme
+   Base colours and fonts come from .streamlit/config.toml;
+   this file adds layout, components and Streamlit chrome tweaks.
 ========================================================= */
 
-.stApp {
-  background-color: #0A0D14;
-  color: #fff;
+:root {
+  --vf-paper: #F7F7F4;
+  --vf-surface: #FFFFFF;
+  --vf-ink: #0F1012;
+  --vf-ink-2: #5B5F66;
+  --vf-line: #E4E4DF;
+  --vf-accent: #FF4F12;
+  --vf-good: #15803D;
+  --vf-good-bg: #DCFCE7;
+  --vf-warn: #B45309;
+  --vf-warn-bg: #FEF3C7;
+  --vf-bad: #B91C1C;
+  --vf-bad-bg: #FEE2E2;
+  --vf-display: 'Archivo', 'Inter', system-ui, sans-serif;
 }
 
-[data-testid="stSidebar"] {
-  background-color: #111520;
+/* ---------- Streamlit chrome ---------- */
+
+[data-testid="stHeader"] {
+  background: transparent;
+  height: 0;
 }
 
-/* =========================================================
-   TYPOGRAPHY (SCOPED – safer)
-========================================================= */
+[data-testid="stDecoration"],
+[data-testid="stSidebarCollapsedControl"],
+footer {
+  display: none !important;
+}
 
 .block-container,
-.block-container * {
-  font-family: 'AdobeClean', sans-serif !important;
+[data-testid="stMainBlockContainer"] {
+  padding-top: 1.5rem !important;
+  padding-bottom: 4rem !important;
+  max-width: 1180px;
 }
 
-/* =========================================================
-   LAYOUT
-========================================================= */
+/* ---------- Buttons: ink primary, quiet secondary ---------- */
 
-.block-container {
-  padding: 50px 3rem !important;
-  max-width: 750px !important;
+[data-testid="stBaseButton-primary"],
+[data-testid="stBaseButton-primaryFormSubmit"] {
+  background: var(--vf-ink) !important;
+  border: 1px solid var(--vf-ink) !important;
+  color: #fff !important;
+  font-weight: 600 !important;
+  min-height: 3rem;
+  transition: background .15s ease, border-color .15s ease;
 }
 
-/* =========================================================
-   BUTTONS
-========================================================= */
-
-button,
-.stButton button,
-.stDownloadButton button,
-.MuiBox-root button {
-  background-color: #181D2A !important;
-  border: 1px solid rgba(255, 255, 255, 0.08) !important;
-  border-radius: 0 !important;
-  font-family: 'AdobeClean', sans-serif !important;
+[data-testid="stBaseButton-primary"]:hover,
+[data-testid="stBaseButton-primaryFormSubmit"]:hover {
+  background: var(--vf-accent) !important;
+  border-color: var(--vf-accent) !important;
 }
 
-/* =========================================================
-   INPUTS & TEXT ELEMENTS
-========================================================= */
-
-input,
-textarea,
-p,
-li,
-code,
-[data-testid="stSelectbox"] > div > div,
-[data-baseweb="select"] > div,
-[data-baseweb="popover"] ul,
-[data-baseweb="menu"] {
-  border-radius: 0 !important;
-  font-family: 'AdobeClean', sans-serif !important;
+[data-testid="stBaseButton-primary"]:disabled,
+[data-testid="stBaseButton-primaryFormSubmit"]:disabled {
+  background: #C9CAC4 !important;
+  border-color: #C9CAC4 !important;
+  color: #fff !important;
+  cursor: not-allowed;
 }
 
-/* =========================================================
-   METRICS
-========================================================= */
-
-[data-testid="stMetric"] {
-  background-color: #181D2A;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  padding: 1rem 1.2rem;
-  border-radius: 0;
+[data-testid="stBaseButton-primary"] p,
+[data-testid="stBaseButton-primaryFormSubmit"] p {
+  font-weight: 600 !important;
 }
 
-[data-testid="stMetric"] div {
+[data-testid="stBaseButton-secondary"] {
+  background: var(--vf-surface) !important;
+  font-weight: 500;
+}
+
+[data-testid="stBaseButton-tertiary"] {
+  color: var(--vf-ink-2) !important;
+}
+
+/* ---------- Bordered containers as cards ---------- */
+
+[data-testid="stVerticalBlockBorderWrapper"] {
+  background: var(--vf-surface);
+}
+
+/* ---------- Typography helpers ---------- */
+
+.vf-num {
+  font-family: var(--vf-display);
+  font-variant-numeric: tabular-nums;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+
+.vf-small { font-size: 0.85rem; }
+.vf-muted { color: var(--vf-ink-2); }
+.vf-strong { font-weight: 600; color: var(--vf-ink); }
+
+.vf-eyebrow {
+  font-family: var(--vf-display);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--vf-ink-2);
+}
+
+.vf-wordmark {
+  font-family: var(--vf-display);
+  font-weight: 900;
+  font-stretch: 85%;
+  letter-spacing: -0.01em;
+  color: var(--vf-ink);
+  line-height: 1;
+}
+
+.vf-wordmark span { color: var(--vf-accent); }
+.vf-wordmark--md { font-size: 1.35rem; }
+.vf-wordmark--lg { font-size: 1.6rem; margin-bottom: 2.5rem; }
+
+.vf-hero-title {
+  font-family: var(--vf-display);
+  font-weight: 900;
+  font-stretch: 80%;
+  font-size: clamp(2.4rem, 4.4vw, 3.5rem);
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  color: var(--vf-ink);
+  margin: 0 0 1rem;
+}
+
+.vf-hero-title em {
+  font-style: normal;
+  color: var(--vf-accent);
+}
+
+.vf-lede {
+  font-size: 1.1rem;
+  color: var(--vf-ink-2);
+  max-width: 34rem;
+  margin-bottom: 1.75rem;
+}
+
+.vf-page-title {
+  font-family: var(--vf-display);
+  font-weight: 900;
+  font-stretch: 85%;
+  font-size: clamp(1.8rem, 4vw, 2.4rem);
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+  line-height: 1;
+  color: var(--vf-ink);
+  margin: 0.25rem 0 1rem;
+}
+
+/* ---------- Top bar ---------- */
+
+.vf-topbar-user {
+  text-align: right;
+  font-size: 0.9rem;
+  color: var(--vf-ink-2);
+}
+
+.vf-topbar-user strong { color: var(--vf-ink); }
+
+/* Markdown blocks carry a negative bottom margin that breaks vertical centring in the top bar. */
+.st-key-topbar [data-testid="stMarkdownContainer"] {
+  margin-bottom: 0 !important;
+}
+
+.vf-rule {
+  border: 0;
+  border-top: 1px solid var(--vf-line);
+  margin: 0.75rem 0 1.75rem;
+}
+
+/* ---------- Cards ---------- */
+
+.vf-card {
+  background: var(--vf-surface);
+  border: 1px solid var(--vf-line);
+  border-radius: 14px;
+  padding: 1.1rem 1.25rem;
+  margin-bottom: 0.9rem;
+}
+
+.vf-card-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+
+/* Rep counter */
+.vf-reps-value {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.vf-reps-value .vf-num { font-size: 4.5rem; }
+
+.vf-reps-target {
+  font-family: var(--vf-display);
+  font-weight: 700;
+  font-size: 1.6rem;
+  color: var(--vf-ink-2);
+}
+
+.vf-bar {
+  height: 8px;
+  border-radius: 999px;
+  background: #EEEEE9;
+  overflow: hidden;
+  margin-bottom: 0.9rem;
+}
+
+.vf-bar span {
+  display: block;
+  height: 100%;
+  background: var(--vf-accent);
+  border-radius: 999px;
+  transition: width .3s ease;
+}
+
+.vf-sets {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-[data-testid="stMetricValue"] {
-  font-size: 1.5rem !important;
-  font-weight: 400 !important;
+.vf-dots { display: inline-flex; gap: 6px; }
+
+.vf-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 2px solid var(--vf-line);
+  display: inline-block;
 }
 
-[data-testid="stMetricLabel"] {
-  font-size: 15px !important;
-  opacity: 0.6;
+.vf-dot.is-done { background: var(--vf-ink); border-color: var(--vf-ink); }
+.vf-dot.is-current { border-color: var(--vf-accent); }
+
+/* Form status */
+.vf-status {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.45rem 0;
+  border-bottom: 1px solid var(--vf-line);
 }
 
-[data-testid="stMetric"] div label p {
-  font-size: 16px !important;
+.vf-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  background: #F0F0EC;
+  color: var(--vf-ink-2);
 }
 
-/* =========================================================
-   CONTAINERS / CARDS
-========================================================= */
-
-.stContainer,
-.stExpander,
-.stTabs,
-.stColumns,
-.stPopover,
-.stAlertContainer,
-.stStatusContainer,
-.stMetric,
-.stTable,
-.stDataFrame,
-.stForm,
-.stSelectbox,
-[data-baseweb="select"] > div,
-[data-testid="stForm"],
-[data-testid="stMetric"],
-[data-testid="stNumberInputContainer"],
-[data-testid="stDataFrameColumnMenu"],
-[data-testid="stHeadingWithActionElements"],
-[data-testid="stCaptionContainer"] p,
-[data-testid="stAlertContentInfo"] p,
-[data-testid="stSidebarNavLink"],
-[data-testid="stMarkdownContainer"] h3,
-[data-baseweb="popover"],
-[data-baseweb="menu"],
-div[role="menu"],
-div[role="menuitem"] {
-  border-radius: 0 !important;
-  font-family: 'AdobeClean', sans-serif !important;
+.vf-chip i {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: currentColor;
 }
 
-/* =========================================================
-   DATAFRAME FIX
-========================================================= */
+.vf-chip--good { background: var(--vf-good-bg); color: var(--vf-good); }
+.vf-chip--warn { background: var(--vf-warn-bg); color: var(--vf-warn); }
+.vf-chip--bad { background: var(--vf-bad-bg); color: var(--vf-bad); }
 
-.stDataFrame,
-.stDataFrame div,
-.stDataFrameGlideDataEditor {
-  border-radius: 0 !important;
-  font-family: 'AdobeClean', sans-serif !important;
+.vf-angles {
+  display: flex;
+  gap: 1.75rem;
+  margin-top: 0.9rem;
 }
 
-/* =========================================================
-   INTERACTIVE ELEMENTS
-========================================================= */
+.vf-angle-value { font-size: 2rem; }
 
-.stTextInput,
-.stTextArea,
-.stNumberInput,
-.stSlider,
-.stMultiselect,
-.stRadio,
-.stCheckbox,
-.stToggle,
-.stFileUploader,
-.stColorPicker,
-.stDateInput,
-.stTimeInput,
-.stCameraInput,
-[data-testid="stTextInput"] > div,
-[data-testid="stButton"] button,
-[data-testid="stBaseButton-secondaryFormSubmit"],
-[data-testid="stStatusWidget"] {
-  border-radius: 0 !important;
-  font-family: 'AdobeClean', sans-serif !important;
+.vf-alert {
+  background: var(--vf-warn-bg);
+  color: var(--vf-warn);
+  border-radius: 10px;
+  padding: 0.55rem 0.75rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
 }
 
-/* =========================================================
-   MARKDOWN
-========================================================= */
+/* Coach */
+.vf-coach { border-left: 4px solid var(--vf-accent); }
 
-[data-testid="stMarkdownContainer"] strong {
-  font-family: 'AdobeClean', sans-serif !important;
+.vf-cue {
+  font-family: var(--vf-display);
+  font-weight: 700;
+  font-size: 1.15rem;
+  line-height: 1.3;
+  color: var(--vf-ink);
+  margin: 0;
 }
 
-/* =========================================================
-   FORM
-========================================================= */
+.vf-mode { margin-top: 0.6rem; }
 
-.stForm {
-  margin-top: 2rem !important;
-  padding: 1.5rem 1rem !important;
-  background-color: #181D2A !important;
+.vf-wave { display: inline-flex; gap: 3px; align-items: center; height: 14px; }
+
+.vf-wave i {
+  width: 3px;
+  height: 100%;
+  background: var(--vf-accent);
+  border-radius: 2px;
+  animation: vf-wave 1.1s ease-in-out infinite;
+}
+
+.vf-wave i:nth-child(2) { animation-delay: .15s; }
+.vf-wave i:nth-child(3) { animation-delay: .3s; }
+.vf-wave i:nth-child(4) { animation-delay: .45s; }
+
+@keyframes vf-wave {
+  0%, 100% { transform: scaleY(.35); }
+  50% { transform: scaleY(1); }
+}
+
+/* Completion */
+.vf-complete {
+  background: var(--vf-ink);
+  border-color: var(--vf-ink);
   color: #fff;
+}
+
+.vf-complete .vf-eyebrow { color: var(--vf-accent); }
+.vf-complete .vf-muted { color: #B8BAC0; }
+
+.vf-complete-title {
+  font-family: var(--vf-display);
+  font-weight: 900;
+  font-size: 3rem;
+  line-height: 1;
+  margin: 0.4rem 0 0.35rem;
+}
+
+/* Stat tiles */
+.vf-tiles {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+}
+
+.vf-tile {
+  background: var(--vf-surface);
+  border: 1px solid var(--vf-line);
+  border-radius: 14px;
+  padding: 0.9rem 1rem;
+}
+
+.vf-tile-value { font-size: 1.9rem; margin-bottom: 0.3rem; }
+
+.vf-info .vf-strong { margin-bottom: 0.2rem; }
+
+.vf-empty {
+  border: 1.5px dashed var(--vf-line);
+  border-radius: 14px;
+  padding: 1.5rem 1.25rem;
+  text-align: center;
+}
+
+/* ---------- Video analysis ---------- */
+
+.vf-section-label {
+  font-family: var(--vf-display);
+  font-weight: 800;
+  font-size: 1.05rem;
+  color: var(--vf-ink);
+  margin: 1.5rem 0 0.5rem;
+}
+
+.vf-facts { margin: -0.5rem 0 1rem; }
+
+.vf-card .vf-complete-title.vf-ink { color: var(--vf-ink); }
+
+.st-key-app_mode { margin-bottom: 1.25rem; }
+
+/* ---------- Camera ---------- */
+
+.st-key-camera-frame {
+  background: var(--vf-ink);
+  border-radius: 18px;
+  padding: 10px;
+  overflow: hidden;
+}
+
+.st-key-camera-frame iframe {
+  border-radius: 10px;
+}
+
+/* ---------- Login ---------- */
+
+.st-key-login-card {
+  max-width: 460px;
+}
+
+.vf-login-side {
+  margin-top: 4.2rem;
+  padding: 1.4rem 1.5rem;
+}
+
+.vf-login-list > div {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+  padding: 0.8rem 0;
+  border-bottom: 1px solid var(--vf-line);
+}
+
+.vf-login-list > div:last-child { border-bottom: 0; }
+
+@media (max-width: 640px) {
+  .vf-login-side { margin-top: 0; }
+}
+
+/* ---------- Tables ---------- */
+
+[data-testid="stDataFrame"] {
+  border: 1px solid var(--vf-line);
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+/* ---------- Small screens ---------- */
+
+@media (max-width: 640px) {
+  .block-container,
+  [data-testid="stMainBlockContainer"] {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+
+  .vf-reps-value .vf-num { font-size: 3.6rem; }
+  .vf-tile-value { font-size: 1.5rem; }
+  .vf-hide-sm { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vf-wave i { animation: none; }
+  .vf-bar span { transition: none; }
 }
