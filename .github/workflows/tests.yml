@@ -1,0 +1,51 @@
+name: Tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  python:
+    name: Python detectors, report and video pipeline
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install system libraries for OpenCV / MediaPipe
+        run: sudo apt-get update && sudo apt-get install -y --no-install-recommends libgl1 libglib2.0-0
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt -r requirements-dev.txt
+
+      - name: Check fixtures are up to date
+        run: |
+          python tests/fixtures/generate_pose_fixtures.py
+          git diff --exit-code tests/fixtures/pose_sequences.json
+
+      - name: Run pytest
+        run: python -m pytest
+
+  javascript:
+    name: Browser detectors match Python
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Syntax check landing page scripts
+        run: |
+          node --check LandingPage/app.js
+          node --check LandingPage/detectors.js
+          node --check LandingPage/live.js
+
+      - name: Run parity tests
+        run: node --test tests/js/detectors.test.mjs

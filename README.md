@@ -16,18 +16,22 @@
 
 - **🎥 Real-Time WebRTC Computer Vision**: Ultra-low latency camera streaming using `streamlit-webrtc` and Google MediaPipe Pose Landmark Detection.
 - **🏋️ Multi-Exercise Biomechanics**:
-  - **Squats**: Knee angle tracking, back angle evaluation, depth validation (*"TOO HIGH"*, *"GOOD DEPTH"*).
+  - **Squats**: Rep counts only when the knee bends past 100°; shallow reps are flagged (*"TOO HIGH"*), plus torso-lean check.
   - **Push-ups**: Elbow flexion angles, spine & hip alignment (*"SAGGING"*, *"PIKED UP"*).
   - **Biceps Curls**: Arm range-of-motion, elbow drift detection, torso swing prevention.
   - **Shoulder Press**: Overhead extension check, lower-back arch monitoring.
   - **Lunges**: Front knee flexion, torso posture, and balance stability checks.
+- **🎬 Video analysis**: Upload a clip and get it back with the skeleton drawn on, a joint-angle chart with every rep marked, a 0–100 score per rep (form flags, depth margin, tempo), and a still of the rep that needs the most work.
+- **🌐 Live demo in the browser**: The landing page runs MediaPipe pose tracking entirely client-side, using a JavaScript port of the detectors that is tested frame-by-frame against the Python versions. No server, no upload, no cold start.
+- **🎨 Clean athletic UI**: Light theme, live rep counter and set progress next to the camera, form status chips, and a coach card — works on phones too.
+- **⚡ Smooth live updates**: The live panel refreshes in a `st.fragment` and voice cues are generated on a background thread, so the page never freezes while the coach is "thinking".
 - **🤖 Proactive AI Voice Coaching (Groq)**:
   - Generates crisp, high-energy coaching cues (10–15 words) tailored to real-time form flaws.
   - Powered by Groq's high-speed inference engine (`openai/gpt-oss-20b` / `groq/compound-mini`) with hidden reasoning mode for sub-second responses.
 - **🗣️ Audio Voice Feedback (TTS)**: Converts coach cues to spoken audio that plays automatically during your workout.
-- **📈 Rep Counting & Progress Tracking**: Automatic repetition counting per set, target sets tracking, and rest cues.
-- **📊 Daily Workout History**: Persistent session logs tracking exercise type, total reps, sets, and active duration.
-- **🌐 Standalone Showcase Landing Page**: Includes a sleek dark-themed HTML/CSS landing page for marketing and user onboarding.
+- **📈 Rep Counting & Progress Tracking**: Automatic repetition counting per set and target-set tracking; counts survive a camera restart and stop at your target.
+- **📊 Workout History**: Per-day logs of exercise, reps, sets and time, plus "this week" totals.
+- **🌐 Landing Page**: A static HTML/CSS/JS page (in `LandingPage/`) with an interactive stick-figure preview that runs the same thresholds as the real detectors.
 
 ---
 
@@ -61,12 +65,21 @@ VisionFit-/
 ├── requirements.txt            # Python dependencies (Streamlit, OpenCV, MediaPipe, Groq)
 ├── README.md                   # Project documentation
 │
-├── LandingPage/                # Showcase Landing Page
-│   ├── index.html              # Modern dark-mode landing page
-│   ├── style.css               # Landing page styling & animations
-│   ├── fonts/                  # Custom web fonts
-│   ├── IMGs_add_your_own/      # Product screenshot gallery assets
-│   └── videos_add_your_own/    # Demo video clips
+├── .streamlit/config.toml      # App theme (colours, Google Fonts), toolbar and upload settings
+├── tests/                      # pytest suite + JS parity tests + shared pose fixtures
+├── scripts/benchmark.py        # Rep-counting accuracy benchmark on labelled clips
+├── benchmarks/                 # Benchmark labels, results, how to record clips
+├── docs/build-notes/           # Step-by-step notes written while building the app
+│
+├── LandingPage/                # Static landing page (deployed on Vercel)
+│   ├── index.html              # Page markup
+│   ├── style.css               # Light "clean athletic" styling
+│   ├── app.js                  # Nav + exercise simulator
+│   ├── detectors.js            # JS port of the rep detectors (parity-tested)
+│   ├── live.js                 # In-browser MediaPipe live demo
+│   ├── favicon.svg             # Site icon
+│   ├── IMGs_add_your_own/      # Drop real app screenshots here
+│   └── videos_add_your_own/    # Drop real demo clips here
 │
 └── app/                        # Core Streamlit Application
     ├── main.py                 # Streamlit entry point
@@ -74,16 +87,18 @@ VisionFit-/
     ├── packages.txt            # System dependencies
     ├── core/                   # Mathematical calculations & angle geometry
     ├── detectors/              # Per-exercise angle detectors (squat, pushup, etc.)
+    ├── samples/                # Optional demo clips for the "Try the sample clip" button
     ├── ml_models/              # MediaPipe Pose Landmarker task model
     ├── services/
+    │   ├── analysis/           # Offline video analyzer + per-rep scoring report
     │   ├── auth/               # User session & login wall
     │   ├── coaching/           # LLMCoach (Groq) & TTS voice pipeline
     │   ├── config/             # Workout parameters & system prompts
     │   ├── persistence/        # SQLite exercise repository
     │   ├── tracking/           # Metric sync & rep tracking logic
-    │   ├── ui/                 # Styling loaders & WebRTC styling injectors
+    │   ├── ui/                 # HTML components, CSS loader & WebRTC button styling
     │   └── vision/             # WebRTC video frame processing pipeline
-    └── static/                 # Stylesheet & custom fonts
+    └── static/                 # App stylesheet
 ```
 
 ---
@@ -199,6 +214,43 @@ A production-ready [Dockerfile](Dockerfile) is included:
 
 ---
 
+## ✅ Testing & Benchmarks
+
+```bash
+pip install -r requirements-dev.txt
+python -m pytest                              # detectors, rep report, voice pipeline, video pipeline
+node --test tests/js/detectors.test.mjs       # browser detectors match Python frame by frame
+```
+
+- **Shared fixtures**: `tests/fixtures/generate_pose_fixtures.py` builds synthetic pose sequences from known joint angles (clean reps, shallow squats, sagging hips, torso swing, back arch, lost balance, low visibility). Both the Python and JavaScript tests run against the same file.
+- **Regression guard**: the old "squat depth warning fires on good reps" bug has its own test.
+- **CI**: `.github/workflows/tests.yml` runs both suites and checks the fixtures are up to date.
+- **Real-world accuracy**: record a few labelled clips and run `python scripts/benchmark.py`. It writes `benchmarks/RESULTS.md` with exact-match rate, rep-level accuracy, mean absolute error and pose-model latency. See `benchmarks/README.md`.
+
+---
+
+## ⚠️ Known Limitations
+
+- **History on Streamlit Community Cloud is not permanent.** Workouts are stored in a local SQLite file (`app/data.db`), which is wiped whenever the cloud app restarts or redeploys. Use an external database (e.g. Postgres, Turso, Supabase) for durable history.
+- **Sign-in is name only.** Anyone who types the same name sees the same history. It's a demo convenience, not authentication.
+- **No `GROQ_API_KEY`?** The coach still speaks, using built-in cues instead of AI-written ones.
+- **Accuracy depends on camera placement.** Angles are 2D from a single camera; side-on with the whole body in frame works best.
+
+---
+
+## 🌐 Landing Page
+
+`LandingPage/` is plain HTML/CSS/JS with no build step. Preview it locally:
+
+```bash
+cd LandingPage
+python -m http.server 8000
+```
+
+Deploy by pointing Vercel (or any static host) at the `LandingPage/` folder. Fonts (Archivo, Inter) load from Google Fonts.
+
+---
+
 ## 📄 License
 
-Distributed under the MIT License. See `LICENSE` for more information.
+No license file has been added yet, so all rights are reserved by default. Add a `LICENSE` file (for example MIT) if you want others to reuse the code.

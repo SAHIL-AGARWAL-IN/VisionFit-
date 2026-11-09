@@ -26,3 +26,5 @@ data.db
 
 # Logs
 *.log
+# Benchmark clips (private videos)
+benchmarks/clips/

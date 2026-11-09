@@ -18,6 +18,7 @@ METRICS_FIELDS = {
     "Squats": {
         "knee_angle": 0,
         "back_angle": 0,
+        "torso_lean": 0,
         "depth_status": "N/A",
     },
     "Push-ups": {
@@ -40,6 +41,63 @@ METRICS_FIELDS = {
         "torso_angle": 0,
         "balance_status": "N/A",
     },
+}
+
+
+# How each exercise is presented in the UI.
+#   angles:   (session key, label) pairs shown as degree readouts
+#   statuses: (session key, label) pairs shown as status chips
+#   checks:   plain-language summary of what the detector actually measures
+#   tip:      how to position the camera for that detector
+EXERCISE_DISPLAY = {
+    "Squats": {
+        "short": "Squats",
+        "angles": [("knee_angle", "Knee"), ("torso_lean", "Torso lean")],
+        "statuses": [("depth_status", "Depth")],
+        "checks": "Knee bends past 100° for a counted rep, torso lean from vertical.",
+        "tip": "Stand side-on to the camera with your whole body in frame.",
+    },
+    "Push-ups": {
+        "short": "Push-ups",
+        "angles": [("elbow_angle", "Elbow")],
+        "statuses": [("body_alignment", "Body line"), ("hip_status", "Hips")],
+        "checks": "Elbow below 90° and back to 160°, straight body line, hips not sagging or piked.",
+        "tip": "Put the camera at floor level, side-on, a couple of metres away.",
+    },
+    "Biceps Curls (Dumbbell)": {
+        "short": "Curls",
+        "angles": [("elbow_angle", "Elbow")],
+        "statuses": [("shoulder_status", "Elbow position"), ("swing_status", "Torso")],
+        "checks": "Full range from 160° down to 50°, elbow pinned to your side, no torso swing.",
+        "tip": "Face the camera or stand side-on, upper body and hips in frame.",
+    },
+    "Shoulder Press": {
+        "short": "Press",
+        "angles": [("elbow_angle", "Elbow")],
+        "statuses": [("extension_status", "Lockout"), ("back_arch_status", "Lower back")],
+        "checks": "Lockout above 160° overhead, back to 90°, lower back not over-arched.",
+        "tip": "Stand side-on so the camera sees arms, hips and knees.",
+    },
+    "Lunges": {
+        "short": "Lunges",
+        "angles": [("front_knee_angle", "Front knee"), ("torso_angle", "Torso")],
+        "statuses": [("balance_status", "Balance")],
+        "checks": "Front knee below 100° for a counted rep, shoulders stacked over hips.",
+        "tip": "Stand side-on with your full stride and feet in frame.",
+    },
+}
+
+
+# Maps detector status strings to a tone for the status chips.
+STATUS_TONES = {
+    "GOOD DEPTH": "good", "STANDING": "neutral", "GO LOWER": "neutral", "TOO HIGH": "warn",
+    "Straight": "good", "Slight Bend": "warn", "Poor Form": "bad",
+    "LEVEL": "good", "SAGGING": "bad", "PIKED UP": "warn",
+    "STABLE": "good", "ELBOW DRIFTING": "warn",
+    "NO SWING": "good", "SWINGING": "bad",
+    "FULL EXTENSION": "good", "NEARLY EXTENDED": "neutral", "PRESSING": "neutral", "START POSITION": "neutral",
+    "Neutral": "good", "Slight Arch": "warn", "Excessive Arch": "bad",
+    "BALANCED": "good", "OFF BALANCE": "bad",
 }
 
 
