@@ -2,26 +2,36 @@ name: Keep Streamlit App Awake
 
 on:
   schedule:
-    # Runs every 4 hours every day
+    # Every 4 hours. GitHub may delay scheduled runs, so this keeps well inside
+    # Streamlit Community Cloud's inactivity window.
     - cron: '0 */4 * * *'
-  # Allows manual triggering from the GitHub Actions tab anytime
+  # Allows manual triggering from the Actions tab
   workflow_dispatch:
 
 jobs:
   keep-alive:
-    name: Ping VisionFit Streamlit App
+    name: Visit VisionFit in a headless browser
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
-      - name: Send Heartbeat Ping
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install Playwright + Chromium
         run: |
-          echo "Sending heartbeat ping to VisionFit Streamlit App..."
-          
-          # Ping lightweight healthcheck endpoint
-          HEALTH_STATUS=$(curl -s -o /dev/null -w "%{http_code}" https://kfqb7msiivnxubjezjte7p.streamlit.app/_stcore/health || echo "000")
-          echo "Health Endpoint Status Code: $HEALTH_STATUS"
+          pip install playwright==1.49.1
+          python -m playwright install --with-deps chromium
 
-          # Ping main application entry
-          APP_STATUS=$(curl -s -o /dev/null -w "%{http_code}" https://kfqb7msiivnxubjezjte7p.streamlit.app/ || echo "000")
-          echo "App URL Status Code: $APP_STATUS"
+      - name: Open the app (wakes it if asleep)
+        run: python scripts/keep_awake.py
 
-          echo "✅ Streamlit keep-alive heartbeat completed successfully."
+      - name: Upload screenshot if the app didn't load
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: keep-awake-failure
+          path: keep-awake-failure.png
+          if-no-files-found: ignore

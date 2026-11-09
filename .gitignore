@@ -28,3 +28,4 @@ data.db
 *.log
 # Benchmark clips (private videos)
 benchmarks/clips/
+keep-awake-failure.png
